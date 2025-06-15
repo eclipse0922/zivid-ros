@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.5)
 project(zivid_camera LANGUAGES CXX)
 
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+set(PYTHON_INSTALL_DIR lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages)
+
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 17)
 endif()
@@ -25,6 +28,7 @@ find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(image_transport REQUIRED)
+find_package(pybind11_vendor REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
@@ -100,6 +104,11 @@ install(
   RUNTIME DESTINATION bin
   INCLUDES DESTINATION include
 )
+
+pybind11_add_module(zivid_camera_pybind src/zivid_camera_pybind.cpp)
+target_link_libraries(zivid_camera_pybind PRIVATE ${ZIVID_DRIVER_COMPONENT_NAME})
+ament_target_dependencies(zivid_camera_pybind rclcpp std_srvs zivid_interfaces)
+install(TARGETS zivid_camera_pybind DESTINATION ${PYTHON_INSTALL_DIR})
 
 
 if(BUILD_TESTING)

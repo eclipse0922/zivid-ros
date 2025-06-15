@@ -1116,6 +1116,29 @@ find /host -name '*.cpp' -or -name '*.hpp' | xargs clang-format -i
 The style follows the one from
 [`ament_clang_format`](https://github.com/ament/ament_lint/blob/master/ament_clang_format/doc/index.rst).
 
+## Python bindings
+
+Minimal Python bindings are provided via `zivid_camera_pybind`.
+The module exposes a `ZividCamera` class that can be used to
+perform captures directly from Python:
+
+```python
+import zivid_camera_pybind
+
+camera = zivid_camera_pybind.ZividCamera()
+if camera.is_connected():
+    camera.capture()
+    camera.capture_2d()
+    camera.capture_and_save("/tmp/frame.zdf")
+    yaml = camera.capture_assistant_suggest_settings()
+    print(camera.camera_info_model_name(), camera.camera_info_serial_number())
+```
+
+The module exposes the same capture-related services as the C++ API:
+`capture()`, `capture_2d()`, `capture_and_save()`,
+`capture_assistant_suggest_settings()`, `camera_info_model_name()`,
+`camera_info_serial_number()` and `is_connected()`.
+
 ## License
 
 This project is licensed under BSD 3-clause license, see the [LICENSE](LICENSE) file for details.

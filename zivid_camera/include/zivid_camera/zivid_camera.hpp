@@ -172,6 +172,7 @@ private:
   IntrinsicsSource intrinsicsSource() const;
 
   friend class ControllerInterface;
+  friend class ZividCameraPrivateAccess;
 
   std::map<std::string, ColorSpace> color_space_name_value_map_;
   std::map<std::string, IntrinsicsSource> intrinsics_source_name_value_map_;

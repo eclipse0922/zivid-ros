@@ -21,7 +21,9 @@
   <depend>tf2</depend>
   <depend>tf2_ros</depend>
   <depend>tf2_geometry_msgs</depend>
+  <build_depend>pybind11_vendor</build_depend>
   <exec_depend>ros2launch</exec_depend>
+  <exec_depend>pybind11_vendor</exec_depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
   <test_depend>ament_lint_auto</test_depend>
